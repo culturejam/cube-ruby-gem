@@ -3,36 +3,37 @@ require 'json'
 module Cube
   module Request
     # Perform an HTTP GET request
-    def get(path, options={}, raw=false)
-      request(:get, path, options, raw)
+    def get(path, params={}, options={}, raw=false)
+      request(:get, path, params, options, raw)
     end
 
     # Perform an HTTP POST request
-    def post(path, options={}, raw=false)
-      request(:post, path, options, raw)
+    def post(path, params={}, raw=false)
+      request(:post, path, params, options, raw)
     end
 
     # Perform an HTTP PUT request
-    def put(path, options={}, raw=false)
-      request(:put, path, options, raw)
+    def put(path, params={}, options={}, raw=false)
+      request(:put, path, params, options, raw)
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, options={}, raw=false)
-      request(:delete, path, options, raw)
+    def delete(path, params={}, options={}, raw=false)
+      request(:delete, path, params, options, raw)
     end
 
     private
 
     # Perform an HTTP request
-    def request(method, path, options, raw=false)
+    def request(method, path, params, options={}, raw=false)
       response = connection(raw).send(method) do |req|
+        req.headers = req.headers.merge(options[:headers]) if options[:headers]
         case method
         when :get, :delete
-          req.url(path, options)
+          req.url(path, params)
         when :post, :put
           req.path = path
-          req.body = options unless options.empty?
+          req.body = params unless params.empty?
         end
       end
       return response if raw

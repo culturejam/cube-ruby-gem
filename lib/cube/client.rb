@@ -19,9 +19,9 @@ module Cube
 
     # Gets a cube metric.
     #
-    def get_metric(expression, options={})
-      options = options.merge(expression: expression)
-      get("/1.0/metric", options, false)
+    def get_metric(expression, params={}, options={})
+      params = params.merge(expression: expression)
+      get("/1.0/metric", params, options, false)
     end
 
   end
