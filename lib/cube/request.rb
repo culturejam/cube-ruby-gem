@@ -3,45 +3,48 @@ require 'json'
 module Cube
   module Request
     # Perform an HTTP GET request
-    def get(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:get, path, options, raw, unformatted, no_response_wrapper)
+    def get(path, params={}, options={})
+      request(:get, path, params, options)
     end
 
     # Perform an HTTP POST request
-    def post(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:post, path, options, raw, unformatted, no_response_wrapper)
+    def post(path, params={})
+      request(:post, path, params, options)
     end
 
     # Perform an HTTP PUT request
-    def put(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:put, path, options, raw, unformatted, no_response_wrapper)
+    def put(path, params={}, options={})
+      request(:put, path, params, options)
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:delete, path, options, raw, unformatted, no_response_wrapper)
+    def delete(path, params={}, options={})
+      request(:delete, path, params, options)
     end
 
     private
 
     # Perform an HTTP request
-    def request(method, path, options, raw=false, unformatted=true, no_response_wrapper=false)
+    # @param [Symbol] method The HTTP method
+    # @param [String] path The request path
+    # @param [Hash] params Request parameters
+    # @options [Hash] Additional request options
+    # @option options [Hash] :headers Request headers
+    # @option options [Boolean] :raw True returns the entire request object,
+    #                                otherwise the body is returned.
+    def request(method, path, params, options={})
       response = connection(raw).send(method) do |req|
-        path = formatted_path(path) unless unformatted
+        req.headers = req.headers.merge(options[:headers]) if options[:headers]
         case method
         when :get, :delete
-          req.url(path, options)
+          req.url(path, params)
         when :post, :put
           req.path = path
-          req.body = options unless options.empty?
+          req.body = params unless params.empty?
         end
       end
-      return response if raw
+      return response if options[:raw]
       return response.body
-    end
-
-    def formatted_path(path)
-      [path, format].compact.join('.')
     end
   end
 end
