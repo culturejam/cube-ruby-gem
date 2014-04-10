@@ -3,31 +3,30 @@ require 'json'
 module Cube
   module Request
     # Perform an HTTP GET request
-    def get(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:get, path, options, raw, unformatted, no_response_wrapper)
+    def get(path, options={}, raw=false)
+      request(:get, path, options, raw)
     end
 
     # Perform an HTTP POST request
-    def post(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:post, path, options, raw, unformatted, no_response_wrapper)
+    def post(path, options={}, raw=false)
+      request(:post, path, options, raw)
     end
 
     # Perform an HTTP PUT request
-    def put(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:put, path, options, raw, unformatted, no_response_wrapper)
+    def put(path, options={}, raw=false)
+      request(:put, path, options, raw)
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, options={}, raw=false, unformatted=true, no_response_wrapper=false)
-      request(:delete, path, options, raw, unformatted, no_response_wrapper)
+    def delete(path, options={}, raw=false)
+      request(:delete, path, options, raw)
     end
 
     private
 
     # Perform an HTTP request
-    def request(method, path, options, raw=false, unformatted=true, no_response_wrapper=false)
+    def request(method, path, options, raw=false)
       response = connection(raw).send(method) do |req|
-        path = formatted_path(path) unless unformatted
         case method
         when :get, :delete
           req.url(path, options)
@@ -38,10 +37,6 @@ module Cube
       end
       return response if raw
       return response.body
-    end
-
-    def formatted_path(path)
-      [path, format].compact.join('.')
     end
   end
 end

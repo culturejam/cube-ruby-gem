@@ -21,7 +21,7 @@ module Cube
     #
     def get_metric(expression, options={})
       options = options.merge(expression: expression)
-      get("/1.0/metric", options, false, true, true)
+      get("/1.0/metric", options, false)
     end
 
   end
