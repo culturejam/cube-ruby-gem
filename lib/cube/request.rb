@@ -32,8 +32,9 @@ module Cube
     # @option options [Hash] :headers Request headers
     # @option options [Boolean] :raw True returns the entire request object,
     #                                otherwise the body is returned.
-    def request(method, path, params, options={})
-      response = connection(raw).send(method) do |req|
+    def request(method, path, params={}, options={})
+      options = { raw: false }.merge(options)
+      response = connection(options[:raw]).send(method) do |req|
         req.headers = req.headers.merge(options[:headers]) if options[:headers]
         case method
         when :get, :delete
