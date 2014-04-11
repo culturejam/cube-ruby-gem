@@ -18,9 +18,9 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "faraday", "~> 0.8.8"
   gem.add_dependency "faraday_middleware", "~> 0.8.0"
-  gem.add_development_dependency "pry"
-  gem.add_development_dependency "simplecov"
-  gem.add_development_dependency "rspec", "~> 2.11.0"
-  gem.add_development_dependency "rake"
   gem.add_development_dependency "license_finder"
+  gem.add_development_dependency "pry"
+  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rspec", "~> 2.11.0"
+  gem.add_development_dependency "simplecov"
 end
