@@ -1,24 +1,26 @@
+# encoding: UTF-8
 require 'json'
 
 module Cube
+  # Abstractions for common HTTP request verbs.
   module Request
     # Perform an HTTP GET request
-    def get(path, params={}, options={})
+    def get(path, params = {}, options = {})
       request(:get, path, params, options)
     end
 
     # Perform an HTTP POST request
-    def post(path, params={})
+    def post(path, params = {})
       request(:post, path, params, options)
     end
 
     # Perform an HTTP PUT request
-    def put(path, params={}, options={})
+    def put(path, params = {}, options = {})
       request(:put, path, params, options)
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, params={}, options={})
+    def delete(path, params = {}, options = {})
       request(:delete, path, params, options)
     end
 
@@ -32,7 +34,7 @@ module Cube
     # @option options [Hash] :headers Request headers
     # @option options [Boolean] :raw True returns the entire request object,
     #                                otherwise the body is returned.
-    def request(method, path, params={}, options={})
+    def request(method, path, params = {}, options = {})
       options = { raw: false }.merge(options)
       response = connection(options[:raw]).send(method) do |req|
         req.headers = req.headers.merge(options[:headers]) if options[:headers]
@@ -45,7 +47,7 @@ module Cube
         end
       end
       return response if options[:raw]
-      return response.body
+      response.body
     end
   end
 end

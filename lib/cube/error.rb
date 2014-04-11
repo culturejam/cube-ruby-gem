@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Cube
   class Error < StandardError; end
 

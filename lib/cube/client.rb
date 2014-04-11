@@ -1,17 +1,18 @@
+# encoding: UTF-8
 require File.expand_path('../configuration', __FILE__)
 require File.expand_path('../connection', __FILE__)
 require File.expand_path('../request', __FILE__)
 
 module Cube
+  # Holds the top-level abstracted Cube API calls.
   class Client
-    include  Cube::Connection
-    include  Cube::Request
+    include Cube::Connection
+    include Cube::Request
 
-    # @private
-    attr_accessor *Cube::Configuration::VALID_OPTIONS_KEYS
+    attr_accessor(*Cube::Configuration::VALID_OPTIONS_KEYS)
 
-    def initialize(options={})
-      options = Cube::options.merge(options)
+    def initialize(options = {})
+      options = Cube.options.merge(options)
       Cube::Configuration::VALID_OPTIONS_KEYS.each do |key|
         send("#{key}=", options[key])
       end
@@ -19,10 +20,9 @@ module Cube
 
     # Gets a cube metric.
     #
-    def get_metric(expression, params={}, options={})
+    def get_metric(expression, params = {}, options = {})
       params = params.merge(expression: expression)
-      get("/1.0/metric", params, options)
+      get('/1.0/metric', params, options)
     end
-
   end
 end
