@@ -19,7 +19,11 @@ module Cube
     end
 
     def connection(raw = false)
-      @conn ||= Faraday.new(connection_options) do |conn|
+      @conn ||= create_connection
+    end
+
+    def create_connection(raw = false)
+      Faraday.new(connection_options) do |conn|
         conn.request :basic_auth, username, password if username && password
         conn.use Cube::FaradayMiddleware::RaiseHttpException
         unless raw
