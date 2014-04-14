@@ -41,7 +41,7 @@ module Cube
     DEFAULT_USERNAME = nil
 
     # The user agent that will be sent to the API endpoint if none is set.
-    DEFAULT_USER_AGENT = "Ruby Cube Client #{Cube::VERSION}".freeze
+    DEFAULT_USER_AGENT = "cube-ruby-gem/#{Cube::VERSION}".freeze
 
     # @private
     attr_accessor(*VALID_OPTIONS_KEYS)
