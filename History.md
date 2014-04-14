@@ -1,4 +1,10 @@
 
+0.2.1 / 2014-04-14
+==================
+
+  * Add rubocop dependency for style checking
+  * Code style fixes
+
 0.2.0 / 2014-04-11
 ==================
 
