@@ -39,7 +39,7 @@ Cube.password = "password"
 cube = Cube.client
 
 # Get metrics.
-cube.get_metric('sum(pageviews)', start: "2014-04-01", step: "6e4", limit: 10)
+cube.client.get_metric('sum(pageviews)', start: "2014-04-01", step: "6e4", limit: 10)
 ```
 
 ## License
