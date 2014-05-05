@@ -41,7 +41,7 @@ module Cube
 
       def error_message(response)
         body = parsed_body(response)
-        body['message'] if body && body['message']
+        body['error'] if body && body['error']
       end
     end
   end
