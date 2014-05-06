@@ -1,4 +1,11 @@
 
+0.2.2 / 2014-05-05
+==================
+
+  * Fix attribute for error message
+  * Modify default user-agent
+  * Fix get_metric example in README
+
 0.2.1 / 2014-04-14
 ==================
 
