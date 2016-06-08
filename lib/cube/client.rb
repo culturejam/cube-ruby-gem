@@ -24,5 +24,12 @@ module Cube
       params = params.merge(expression: expression)
       get('/1.0/metric', params, options)
     end
+    
+    # Gets a cube events.
+    #
+    def get_events(expression, params = {}, options = {})
+      params = params.merge(expression: expression)
+      get('/1.0/event', params, options)
+    end
   end
 end
